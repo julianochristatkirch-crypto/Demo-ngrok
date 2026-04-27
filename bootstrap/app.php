@@ -13,6 +13,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
+        // Trust all proxies for ngrok
+        $middleware->trustProxies(at: '*');
+        $middleware->trustHosts(at: ['*']);
+        
         $middleware->alias([
             'admin' => AdminMiddleware::class,
         ]);
